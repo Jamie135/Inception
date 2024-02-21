@@ -1,3 +1,5 @@
+#!/bin/sh
+
 service mysql start;
 
 sleep 2
