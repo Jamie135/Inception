@@ -8,9 +8,10 @@ RUN chown -R www-data:www-data /var/www/html && \
 
 RUN mkdir -p /etc/nginx/ssl
 
-RUN apt install openSSL -y
+RUN apt -y install openssl
 
-RUN openssl req -x509 \
+RUN openssl req -newkey rsa:4096 -x509 \
+				-days 365 \
 				-nodes \
 				-out /etc/nginx/ssl/inception.crt \
 				-keyout /etc/nginx/ssl/inception.key \
