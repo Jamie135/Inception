@@ -1,9 +1,9 @@
 FROM	debian:buster
 
-RUN     apt-get update -y
-RUN     apt-get upgrade -y
-RUN     apt-get install -y mariadb-server
-RUN     apt-get install -y mariadb-client
+RUN     apt-get update -y && \
+        apt-get upgrade -y && \
+        apt-get install -y mariadb-server && \
+        apt-get install -y mariadb-client
 
 RUN     mkdir -p /var/run/mysqld && \
         chown -R mysql:mysql /var/run/mysqld && \
