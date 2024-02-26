@@ -1,7 +1,8 @@
 #!/bin/sh
 
-sleep   10
+sleep   10 #Assurer que la base de donnees MariaDB a eu le temps de se lancer correctement
 
+#Allow the auto-completion of WordPress pages at startup
 wp  config create	--allow-root \
 					--dbname=$MYSQL_DATABASE \
 					--dbuser=$MYSQL_USER \
