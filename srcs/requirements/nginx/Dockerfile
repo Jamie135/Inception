@@ -1,15 +1,14 @@
 FROM	debian:buster
 
-RUN apt -y update && apt -y upgrade
-RUN apt install nginx -y
-RUN apt install vim -y
+RUN apt -y update && apt -y upgrade && \
+	apt install nginx -y && apt install vim -y
 
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod 755 /var/www/html
+RUN chown -R www-data:www-data /var/www/html && \
+	chmod 755 /var/www/html
 
 RUN mkdir -p /etc/nginx/ssl
 
-RUN apt install OpenSSL -y
+RUN apt install openSSL -y
 
 RUN openssl req -x509 \
 				-nodes \
