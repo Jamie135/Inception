@@ -5,31 +5,31 @@ services:
   mariadb:
     container_name: mariadb
     networks:
-      - inception
+      - inception #Network it belongs to
     build:
-      context: ./requirements/mariadb
+      context: ./requirements/mariadb #Dockerfile location
     dockerfile: Dockerfile
-    env_file: .env
+    env_file: .env #Environnement pour transmettre les variables
     volumes:
-      - mariadb:/var/lib/mysql
-    restart: unless-stopped
+      - mariadb:/var/lib/mysql #Stocker localement les dossiers de /var/lib/mysql dans le volume mariadb
+    restart: unless-stopped #Redémarre tant qu'il n'est pas stoppé
     expose:
-      - "3306"
+      - "3306" #Port à exposer
   
   nginx:
     container_name: nginx
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/wordpress #Stocker localement les dossiers de /var/www/wordpress dans wordpress
     networks:
       - inception
     depends_on:
-      - wordpress
+      - wordpress #Ne pas démarrer NGINX tant que WordPress n'a pas démarré.
     build:
       context: requirements/nginx
     env_file: .env
     ports:
-      - "443:443"
-    restart: on-failure
+      - "443:443" #Indique le port qui sera exposé a la machine locale
+    restart: on-failure #Redémarre encas de crash
   
   wordpress:
     container_name: wordpress
@@ -42,18 +42,18 @@ services:
       context: ./requirements/wordpress
     dockerfile: Dockerfile
     depends_on:
-      - mariadb
+      - mariadb #Ne pas démarrer WordPress tant que MariaDB n'a pas démarré (sinon il ne pourra pas configurer la base de données...)
     restart: on-failure
     expose:
       - "9000"
 
 volumes:
   wordpress:
-    driver: local
+    driver: local #Stockage de volume en local
     driver_opts:
       type: none
       o: bind
-      device: /home/pbureera/data/html
+      device: /home/pbureera/data/html #L'endroit pour stocker localement sur l'ordinateur
   mariadb:
     driver: local
     driver_opts:
@@ -63,4 +63,4 @@ volumes:
 
 networks:
   inception:
-    driver: bridge
+    driver: bridge #Installe automatiquement les règles qui permettront aux 3 containers de communiquer en bridge
