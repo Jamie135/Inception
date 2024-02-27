@@ -1,6 +1,6 @@
 LOGIN = pbureera
 DATADIR = /home/${LOGIN}/data
-VOLWORDPRESS = ${DATADIR}/wordpress
+VOLWORDPRESS = ${DATADIR}/html
 VOLMARIADB = ${DATADIR}/mariadb
 DOCKERCOMPOSE = srcs/docker-compose.yml
 UPFLAG = --detach
