@@ -8,7 +8,6 @@ services:
       - inception #Network it belongs to
     build:
       context: ./requirements/mariadb #Dockerfile location
-    dockerfile: Dockerfile
     env_file: .env #Environnement pour transmettre les variables
     volumes:
       - mariadb:/var/lib/mysql #Stocker localement les dossiers de /var/lib/mysql dans le volume mariadb
@@ -40,7 +39,6 @@ services:
       - inception
     build:
       context: ./requirements/wordpress
-    dockerfile: Dockerfile
     depends_on:
       - mariadb #Ne pas démarrer WordPress tant que MariaDB n'a pas démarré (sinon il ne pourra pas configurer la base de données...)
     restart: on-failure
