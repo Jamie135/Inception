@@ -18,8 +18,8 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN	chmod +x wp-cli.phar
 RUN	mv wp-cli.phar /usr/local/bin/wp
 
-COPY	/tools/auto_config.sh /usr/local/bin/
+COPY	./tools/auto_config.sh /usr/local/bin/
 RUN	chmod +x /usr/local/bin/auto_config.sh
 
-ENTRYPOINT	["/tools/auto_config.sh"]
+ENTRYPOINT	["bash", "/usr/local/bin/auto_config.sh"]
 EXPOSE	9000
