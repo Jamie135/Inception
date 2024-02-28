@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
 
@@ -11,14 +11,14 @@ services:
     env_file: .env #Environnement pour transmettre les variables
     volumes:
       - mariadb:/var/lib/mysql #Stocker localement les dossiers de /var/lib/mysql dans le volume mariadb
-    restart: unless-stopped #Redémarre tant qu'il n'est pas stoppé
+    restart: always
     expose:
       - "3306" #Port à exposer
   
   nginx:
     container_name: nginx
     volumes:
-      - wordpress:/var/www/wordpress #Stocker localement les dossiers de /var/www/wordpress dans wordpress
+      - wordpress:/var/www/html #Stocker localement les dossiers de /var/www/wordpress dans wordpress
     networks:
       - inception
     depends_on:
@@ -28,20 +28,20 @@ services:
     env_file: .env
     ports:
       - "443:443" #Indique le port qui sera exposé a la machine locale
-    restart: on-failure #Redémarre encas de crash
+    restart: always
   
   wordpress:
     container_name: wordpress
     env_file: .env
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
     networks:
       - inception
     build:
       context: ./requirements/wordpress
     depends_on:
       - mariadb #Ne pas démarrer WordPress tant que MariaDB n'a pas démarré (sinon il ne pourra pas configurer la base de données...)
-    restart: on-failure
+    restart: always
     expose:
       - "9000"
 
@@ -57,7 +57,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/pbureera/data/mariadb
+      device: /home/pbureera/data/mysql
 
 networks:
   inception:
