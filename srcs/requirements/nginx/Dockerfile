@@ -1,8 +1,8 @@
-FROM	debian:buster
+FROM	debian:bullseye
 
 #Install NGINX
 RUN apt -y update && apt -y upgrade && \
-	apt install nginx -y && apt install vim -y
+	apt install nginx -y
 
 RUN chown -R www-data:www-data /var/www/html && \
 	chmod 755 /var/www/html
@@ -17,12 +17,12 @@ RUN openssl req -newkey rsa:4096 -x509 \
 				-nodes \
 				-out /etc/nginx/ssl/inception.crt \
 				-keyout /etc/nginx/ssl/inception.key \
-				-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=login.42.fr/UID=login"
+				-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=pbureera.42.fr/UID=pbureera"
+
+RUN mkdir -p /run/nginx
 
 #Copy the NGINX configuration file to the container
-COPY conf/nginx.conf /etc/nginx/nginx.conf
-
-RUN mkdir -p /var/run/nginx
+COPY ./conf/nginx.conf /etc/nginx/conf.d/server.conf
 
 #Expose ports
 EXPOSE 443
