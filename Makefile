@@ -1,45 +1,28 @@
-LOGIN = pbureera
-DATADIR = /home/${LOGIN}/data
-VOLWORDPRESS = ${DATADIR}/html
-VOLMARIADB = ${DATADIR}/mariadb
-DOCKERCOMPOSE = srcs/docker-compose.yml
-UPFLAG = --detach
-DOWNFLAG = --volumes --rmi all
 
-all: build
+DOCKER_COMPOSE = ./srcs/docker-compose.yml
+DATA_PATH = /home/pbureera/data
 
-${VOLWORDPRESS}:
-	@sudo mkdir -p ${VOLWORDPRESS}
+all: up
 
-${VOLMARIADB}:
-	@sudo mkdir -p ${VOLMARIADB}
-
-build: | ${VOLWORDPRESS} ${VOLMARIADB}
-	@docker compose -f ${DOCKERCOMPOSE} up --build ${UPFLAG}
-
-up: | ${VOLWORDPRESS} ${VOLMARIADB}
-	@docker compose -f ${DOCKERCOMPOSE} up ${UPFLAG}
-
-start: | ${VOLWORDPRESS} ${VOLMARIADB}
-	@docker compose -f ${DOCKERCOMPOSE} start
+up:
+	@sudo mkdir -p $(DATA_PATH)/html
+	@sudo mkdir -p $(DATA_PATH)/mariadb
+	@sudo docker-compose -f $(DOCKER_COMPOSE) up -d
 
 stop:
-	@docker compose -f ${DOCKERCOMPOSE} stop
+	@sudo docker-compose -f $(DOCKER_COMPOSE) stop
 
+# down stops and removes the containers 
+# -v removes any volumes associated with the containers being stopped and removed
 down:
-	@docker compose -f ${DOCKERCOMPOSE} down
+	@sudo docker-compose -f $(DOCKER_COMPOSE) down -v
 
 clean: down
-	@printf "Purge configuration ${name}...\n"
-	@docker system prune -a
-fclean:
-	@printf "Full cleanup of all docker configurations\n"
-	@docker stop $$(docker ps -qa)
-	@docker system prune --all --force --volumes
-	@docker volume rm $$(docker volume ls -q)
-	@docker network prune --force
-	@docker volume prune --force
+	@sudo docker system prune -af
 
-re: fclean all
+remove_data:
+	@sudo rm -rf $(DATA_PATH)
 
-.PHONY: all build up start stop down clean prune fclean re
+re: clean up
+
+.PHONY: all up stop remove_data down clean re
