@@ -12,8 +12,6 @@ up:
 stop:
 	@sudo docker-compose -f $(DOCKER_COMPOSE) stop
 
-# down stops and removes the containers 
-# -v removes any volumes associated with the containers being stopped and removed
 down:
 	@sudo docker-compose -f $(DOCKER_COMPOSE) down -v
 
