@@ -11,7 +11,7 @@ services:
     env_file: .env #Environnement pour transmettre les variables
     volumes:
       - mariadb:/var/lib/mysql #Stocker localement les dossiers de /var/lib/mysql dans le volume mariadb
-    restart: always
+    restart: unless-stopped #Redemarre quand on stop
     expose:
       - "3306" #Port à exposer
   
@@ -28,7 +28,7 @@ services:
     env_file: .env
     ports:
       - "443:443" #Indique le port qui sera exposé a la machine locale
-    restart: always
+    restart: on-failure #Redemarrer en cas de crash
   
   wordpress:
     container_name: wordpress
@@ -41,7 +41,7 @@ services:
       context: ./requirements/wordpress
     depends_on:
       - mariadb #Ne pas démarrer WordPress tant que MariaDB n'a pas démarré (sinon il ne pourra pas configurer la base de données...)
-    restart: always
+    restart: on-failure
     expose:
       - "9000"
 
