@@ -6,7 +6,7 @@ all: up
 
 up:
 	@sudo mkdir -p $(DATA_PATH)/html
-	@sudo mkdir -p $(DATA_PATH)/mariadb
+	@sudo mkdir -p $(DATA_PATH)/mysql
 	@sudo docker-compose -f $(DOCKER_COMPOSE) up -d
 
 stop:

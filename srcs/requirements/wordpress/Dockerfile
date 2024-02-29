@@ -21,5 +21,5 @@ RUN	mv wp-cli.phar /usr/local/bin/wp
 COPY	./tools/auto_config.sh /usr/local/bin/
 RUN	chmod +x /usr/local/bin/auto_config.sh
 
-ENTRYPOINT	["bash", "/usr/local/bin/auto_config.sh"]
+# ENTRYPOINT	["bash", "/usr/local/bin/auto_config.sh"]
 EXPOSE	9000
