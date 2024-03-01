@@ -13,10 +13,10 @@ RUN     mkdir -p /var/run/mysqld && \
         chown -R mysql:mysql /etc/mysql/
 
 COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
-COPY	tools/script.sh /tmp/script.sh
+COPY	tools/mariadb.sh /tmp/mariadb.sh
 
-RUN	chmod +x /tmp/script.sh && \
+RUN	chmod +x /tmp/mariadb.sh && \
     chown -R mysql:mysql /tmp/ && \
     chown -R mysql:mysql /etc/mysql
 
-# ENTRYPOINT ["sh", "/tmp/script.sh"]
+# ENTRYPOINT ["sh", "/tmp/mariadb.sh"]
