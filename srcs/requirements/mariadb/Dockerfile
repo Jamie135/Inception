@@ -1,5 +1,7 @@
 FROM	debian:bullseye
 
+EXPOSE 3306
+
 RUN     apt-get update -y && \
         apt-get upgrade -y && \
         apt-get install -y mariadb-server && \
@@ -16,8 +18,6 @@ COPY	tools/script.sh /tmp/script.sh
 RUN	chmod +x /tmp/script.sh && \
     chown -R mysql:mysql /tmp/ && \
     chown -R mysql:mysql /etc/mysql
-
-EXPOSE 3306
 
 ENTRYPOINT ["sh", "/tmp/script.sh"]
 
