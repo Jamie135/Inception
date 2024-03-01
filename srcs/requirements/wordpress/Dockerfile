@@ -11,7 +11,7 @@ COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 #Download WordPress then decompress
 RUN	wget https://fr.wordpress.org/wordpress-6.3-fr_FR.tar.gz -P /var/www
 RUN	cd /var/www && tar -xzf wordpress-6.3-fr_FR.tar.gz && rm wordpress-6.3-fr_FR.tar.gz
-RUN	chown -R root:root /var/www/wordpress
+RUN	chown -R root:root /var/www/html
 
 #Download CLI
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

@@ -1,14 +1,14 @@
 #!/bin/bash
 
 #change working dir to where all the wordpress files are
-cd /var/www/wordpress
+cd /var/www/html
 
 # give MariaDB time to lauch correctly:
 sleep 10
 
 #if there is no wordpress config: create one. 
 # Use the MariaDB credentials and the networkport 3306 to set it up
-if [ ! -e /var/www/wordpress/wp-config.php ]; then
+if [ ! -e /var/www/html/wp-config.php ]; then
 	wp config create --allow-root \
 									  --dbname=$MYSQL_DATABASE \
 									  --dbuser=$MYSQL_USER \
