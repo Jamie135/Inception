@@ -7,6 +7,9 @@ RUN apt -y update && apt -y upgrade && \
 RUN chown -R www-data:www-data /var/www/html && \
 	chmod 755 /var/www/html
 
+#Expose ports
+EXPOSE 443
+
 #Create a self-signed SSL certificate (you can replace this with your own certificate)
 RUN mkdir -p /etc/nginx/ssl
 
@@ -23,9 +26,6 @@ RUN mkdir -p /run/nginx
 
 #Copy the NGINX configuration file to the container
 COPY ./conf/nginx.conf /etc/nginx/conf.d/server.conf
-
-#Expose ports
-EXPOSE 443
 
 #Start NGINX daemon
 CMD [ "nginx", "-g", "daemon off;" ]
