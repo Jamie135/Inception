@@ -19,6 +19,4 @@ RUN	chmod +x /tmp/script.sh && \
     chown -R mysql:mysql /tmp/ && \
     chown -R mysql:mysql /etc/mysql
 
-ENTRYPOINT ["sh", "/tmp/script.sh"]
-
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+# ENTRYPOINT ["sh", "/tmp/script.sh"]
