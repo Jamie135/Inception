@@ -3,6 +3,7 @@ version: '3.8'
 services:
 
   mariadb:
+    command: ["./mariadb.sh"]
     container_name: mariadb
     networks:
       - inception #Network it belongs to
@@ -31,6 +32,7 @@ services:
     restart: on-failure #Redemarrer en cas de crash
   
   wordpress:
+    command: ["./auto_config.sh"]
     container_name: wordpress
     env_file: .env
     volumes:
@@ -61,4 +63,5 @@ volumes:
 
 networks:
   inception:
+    name: inception
     driver: bridge #Installe automatiquement les règles qui permettront aux 3 containers de communiquer en bridge
