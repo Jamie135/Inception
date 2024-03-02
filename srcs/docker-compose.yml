@@ -9,7 +9,7 @@ services:
       - inception #Network it belongs to
     build:
       context: ./requirements/mariadb #Dockerfile location
-    env_file: .env #Environnement pour transmettre les variables
+    env_file: .env #.env_sample #Environnement pour transmettre les variables
     volumes:
       - mariadb:/var/lib/mysql #Stocker localement les dossiers de /var/lib/mysql dans le volume mariadb
     restart: unless-stopped #Redemarre quand on stop
@@ -26,7 +26,7 @@ services:
       - wordpress #Ne pas démarrer NGINX tant que WordPress n'a pas démarré.
     build:
       context: requirements/nginx
-    env_file: .env
+    env_file: .env #.env_sample
     ports:
       - "443:443" #Indique le port qui sera exposé a la machine locale
     restart: on-failure #Redemarrer en cas de crash
@@ -34,7 +34,7 @@ services:
   wordpress:
     command: ["./auto_config.sh"]
     container_name: wordpress
-    env_file: .env
+    env_file: .env #.env_sample
     volumes:
       - wordpress:/var/www/html
     networks:
