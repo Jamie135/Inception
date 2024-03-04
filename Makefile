@@ -29,8 +29,13 @@ fclean:
 	docker rm $$(docker ps -qa); \
 	docker rmi -f $$(docker images -qa); \
 	docker volume rm $$(docker volume ls -q); \
-	docker network rm $$(docker network ls -q) \
+	docker network rm $$(docker network ls -q); \
 	@sudo rm -rf $(DATA_PATH)
+# docker stop $$(docker ps -qa): stops all running containers
+# docker rm $$(docker ps -qa): removes all stopped containers
+# docker rmi -f $$(docker images -qa): force removes all images
+# docker volume rm $$(docker volume ls -q): removes all volumes
+# docker network rm $$(docker network ls -q): removes all networks
 
 re: fclean all
 
