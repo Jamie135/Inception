@@ -24,19 +24,18 @@ clean: down
 # Remove unused containers, networks, images and volumes
 # Doesnt affect the data stored within the containers
 
-fclean:
-	docker stop $$(docker ps -qa);
-	docker rm $$(docker ps -qa); \
-	docker rmi -f $$(docker images -qa); \
-	docker volume rm $$(docker volume ls -q); \
-	docker network rm $$(docker network ls -q); \
-	@sudo rm -rf $(DATA_PATH)
+fclean: clean
+	@sudo rm -rf $(DATA_PATH)/html
+	@sudo rm -rf $(DATA_PATH)/mysql
+	@sudo docker network prune --force
+	@sudo docker volume prune --force
+	@sudo docker system prune --all --force --volumes
 # docker stop $$(docker ps -qa): stops all running containers
 # docker rm $$(docker ps -qa): removes all stopped containers
 # docker rmi -f $$(docker images -qa): force removes all images
 # docker volume rm $$(docker volume ls -q): removes all volumes
 # docker network rm $$(docker network ls -q): removes all networks
 
-re: fclean all
+re: clean up
 
 .PHONY: all up stop down clean fclean re
