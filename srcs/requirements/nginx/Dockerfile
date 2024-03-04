@@ -1,8 +1,8 @@
 FROM	debian:bullseye
 
 #Install NGINX
-RUN apt -y update && apt -y upgrade && \
-	apt install nginx -y
+RUN apt-get -y update && apt-get -y upgrade && \
+	apt-get install nginx -y
 
 RUN chown -R www-data:www-data /var/www/html && \
 	chmod 755 /var/www/html
@@ -13,7 +13,7 @@ EXPOSE 443
 #Create a self-signed SSL certificate (you can replace this with your own certificate)
 RUN mkdir -p /etc/nginx/ssl
 
-RUN apt -y install openssl
+RUN apt-get -y install openssl
 
 RUN openssl req -newkey rsa:4096 -x509 \
 				-days 365 \

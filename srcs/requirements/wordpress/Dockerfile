@@ -3,10 +3,10 @@ FROM	debian:bullseye
 RUN		mkdir -p /var/www/html \
 		&& mkdir -p /run/php
 
-RUN		apt update -y \
-		&& apt upgrade -y \
-		&& apt install wget -y \
-		&& apt install -y php7.4 php-fpm php-mysql php-common php-cgi php-cli mariadb-client vim
+RUN		apt-get update -y \
+		&& apt-get upgrade -y \
+		&& apt-get install wget -y \
+		&& apt-get install -y php7.4 php-fpm php-mysql php-common php-cgi php-cli mariadb-client vim
 
 EXPOSE	9000
 
