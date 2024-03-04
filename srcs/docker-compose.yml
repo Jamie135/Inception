@@ -13,11 +13,12 @@ services:
     volumes:
       - mariadb:/var/lib/mysql #Stocker localement les dossiers de /var/lib/mysql dans le volume mariadb
     restart: unless-stopped #Redemarre quand on stop
-    healthcheck: #Periodically check the health of a container to automatically restart containers if they become unhealthy
-      test: "mysql -uwordpress -pwordpress -e 'SELECT 1;'" #Verifies that the MariaDB server is able to accept connections and respond to queries by running SELECT 1 command in MariaDB
-      interval: 1s
-      timeout: 10s
-      retries: 15
+    healthcheck:
+      test: mysqladmin ping --host=localhost -p${MYSQL_ROOT_PASSWORD}
+      interval: 5s
+      timeout: 1s
+      retries: 20
+      start_period: 5s
     expose:
       - "3306" #Port à exposer
   
