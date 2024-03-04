@@ -1,12 +1,12 @@
 DOCKER_COMPOSE = ./srcs/docker-compose.yml
 DATA_PATH = /home/pbureera/data
 
-all: up -d --build
+all: up
 
 up:
 	@sudo mkdir -p $(DATA_PATH)/html
 	@sudo mkdir -p $(DATA_PATH)/mysql
-	@sudo docker-compose -f $(DOCKER_COMPOSE) up -d
+	@sudo docker-compose -f $(DOCKER_COMPOSE) up -d --build
 # -f specifies the location of the YAML file that defines the services, networks and volumes
 # up - start and run Docker containers defined in YAML file
 # -d detached mode (in the background)
