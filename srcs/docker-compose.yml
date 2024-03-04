@@ -13,6 +13,11 @@ services:
     volumes:
       - mariadb:/var/lib/mysql #Stocker localement les dossiers de /var/lib/mysql dans le volume mariadb
     restart: unless-stopped #Redemarre quand on stop
+    healthcheck: #Periodically check the health of a container to automatically restart containers if they become unhealthy
+      test: mysqladmin ping --host=localhost -p${MYSQL_ROOT_PASSWORD} #Verifies that the MariaDB server is able to accept connections and respond to queries
+      interval: 10s
+      timeout: 5s
+      retries: 15
     expose:
       - "3306" #Port à exposer
   
@@ -29,6 +34,12 @@ services:
     env_file: .env #.env_sample
     ports:
       - "443:443" #Indique le port qui sera exposé a la machine locale
+    healthcheck:
+      test: 'curl -kfsSL https://localhost:443' #Checks if the Nginx server is reachable via HTTPS on localhost:443
+      interval: 5s
+      timeout: 1s
+      retries: 10
+      start_period: 5s
     restart: on-failure #Redemarrer en cas de crash
   
   wordpress:
