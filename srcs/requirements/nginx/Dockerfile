@@ -2,7 +2,8 @@ FROM	debian:bullseye
 
 #Install NGINX
 RUN apt-get -y update && apt-get -y upgrade && \
-	apt-get install nginx -y
+	apt-get install nginx -y && apt-get install vim -y && \
+	apt-get install curl -y
 
 RUN chown -R www-data:www-data /var/www/html && \
 	chmod 755 /var/www/html
