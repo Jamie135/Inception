@@ -35,12 +35,6 @@ services:
     env_file: .env
     ports:
       - "443:443" #Indique le port qui sera exposé a la machine locale
-    healthcheck:
-      test: 'curl -kfsSL https://localhost:443' #Checks if the Nginx server is reachable via HTTPS on localhost:443
-      interval: 5s
-      timeout: 1s
-      retries: 10
-      start_period: 5s
     restart: on-failure #Redemarrer en cas de crash
   
   wordpress:
