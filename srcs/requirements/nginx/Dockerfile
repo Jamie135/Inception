@@ -7,22 +7,19 @@ RUN apt-get -y update && apt-get -y upgrade && \
 RUN chown -R www-data:www-data /var/www/html && \
 	chmod 755 /var/www/html
 
-#Expose ports
-EXPOSE 443
-
 #Create a self-signed SSL certificate (you can replace this with your own certificate)
 RUN mkdir -p /etc/nginx/ssl
 
 RUN apt-get -y install openssl
 
-RUN openssl req -newkey rsa:4096 -x509 \
-				-days 365 \
+RUN openssl req -x509 \
 				-nodes \
 				-out /etc/nginx/ssl/inception.crt \
 				-keyout /etc/nginx/ssl/inception.key \
 				-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=pbureera.42.fr/UID=pbureera"
 
-RUN mkdir -p /run/nginx
+#Expose ports
+EXPOSE 443
 
 #Copy the NGINX configuration file to the container
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
