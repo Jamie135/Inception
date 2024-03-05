@@ -25,7 +25,7 @@ RUN openssl req -newkey rsa:4096 -x509 \
 RUN mkdir -p /run/nginx
 
 #Copy the NGINX configuration file to the container
-COPY ./conf/nginx.conf /etc/nginx/conf.d/server.conf
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 #Start NGINX daemon
 CMD [ "nginx", "-g", "daemon off;" ]
